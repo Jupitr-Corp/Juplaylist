@@ -16,7 +16,3 @@ You can add songs by searching for them as shown below.
 
 You can vote for songs by clicking on the upvote button.
 The song with the most votes will be played next.
-
-### 4. Play songs
-
-If you are the host of the playlist, you can play songs by clicking on the play button.
