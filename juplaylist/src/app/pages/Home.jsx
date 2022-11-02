@@ -1,19 +1,25 @@
-import React,{useState} from 'react';
-import { FiUsers, FiShare } from "react-icons/fi";
+import React,{useState, useEffect} from 'react';
 import "../css/Home.css";
+import HomeHeader from "../components/HomeHeader";
 
 
-function Home(props) {
+function Home(props, {platform}) {
+
+
+    // ------------------ State ------------------
 
     const [participants, setParticipants] = useState(0); // TODO: get participants from database each time there is a new connection
     const [UID] = useState("EYD7D3"); // TODO: get UID from database
 
+    // ------------------ Variables ------------------
+
     const shareUrl = " Join our playlist at https://juplaylist.com/Join/" + UID + " !"; //TODO: choose url format
 
-    let SmsRequest = "sms:?body=" + shareUrl;
+    const SmsRequest = platform === "Android" ? "sms:?body=" + shareUrl : "sms:&body=" + shareUrl;
+
+    // ------- Functions ------
 
     const addParticipant = () => {
-        console.log(getMobileOS());
         setParticipants(participants + 1);
     }
 
@@ -26,41 +32,25 @@ function Home(props) {
     }
 
     const copyToClipboard = () => {
-        let platform = getMobileOS();
-        SmsRequest = platform === "Android" ? "sms:?body=" + shareUrl : "sms:&body=" + shareUrl;
         navigator.clipboard.writeText(shareUrl);
     }
 
+    // ------------------ Effects ------------------
 
-    const getMobileOS = () => {
-        const ua = navigator.userAgent
-        if (/android/i.test(ua)) {
-          return "Android"
+    useEffect(() => {
+        if(platform === 'undefined') {
+            console.log("Platform is " + platform);
+
         }
-        else if ((/iPad|iPhone|iPod/.test(ua)) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) 
-        {
-          return "iOS"
+        else {
+            console.log("Platform is " + platform);
         }
-        return "Other"
-      }
+    }, [platform]);
 
-
-      
-
+    // ------------------ Render ------------------
 
     return (
-        <div className='home-header'>
-            <div onClick={addParticipant} className='header-element participants'>
-                <p>{participants}</p>
-                <FiUsers className='home-header-icon'/>
-            </div>
-            <div className='header-element invite'>
-                <a onClick={copyToClipboard} href={SmsRequest} className='invite-link'>
-                    <p>Invite</p>
-                    <FiShare className='home-header-icon'/>
-                </a>
-            </div>
-        </div>
+        <HomeHeader platform={platform} SmsRequest={SmsRequest} copyToClipboard={copyToClipboard} />
         );
 }
 
