@@ -1,11 +1,21 @@
 import "./app/css/App.css";
-import Header from "./app/components/Header";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./app/pages/Layout";
+import Home from "./app/pages/Home";
+import Account from "./app/pages/Account";
+import NoPage from "./app/pages/NoPage";
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="account" element={<Account />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
