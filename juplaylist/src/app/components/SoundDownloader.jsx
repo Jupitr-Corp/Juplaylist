@@ -8,4 +8,8 @@ function SoundPlayer(props) {
   return <div></div>;
 }
 
-export { SoundPlayer, SoundDownloader };
+function SoundTest(props) {
+  return <div></div>;
+}
+
+export { SoundPlayer, SoundDownloader, SoundTest };
