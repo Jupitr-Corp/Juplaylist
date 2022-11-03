@@ -3,13 +3,32 @@ import "../css/Home.css";
 import { FiUsers, FiShare } from "react-icons/fi";
 
 
-function HomeHeader(props, {platform, participants, SmsRequest, copyToClipboard}) {
+function HomeHeader(props) {
 
 
-// ------------------ Effects ------------------
+    const {   
+        participants,
+        SmsRequest,
+        copyToClipboard,
+        platform,
+        setLoading
+    } = props;
 
+    console.log("HomeHeader.jsx: platform = " + platform);
+    console.log("HomeHeader.jsx: participants = " + participants);
 
-// ------------------ Render ------------------
+    // ------------------ Effects ------------------
+
+    useEffect(() => {
+        if((platform !== "Android" && platform !== "iOS" && platform !== "Other") || SmsRequest === "undefined" || participants === "undefined") {
+            setLoading(true);
+        }
+        else {
+            setLoading(false);
+        }
+    }, [platform, participants, SmsRequest, setLoading]);
+
+    // ------------------ Render ------------------
 
     return(
         <div className='home-header'>
