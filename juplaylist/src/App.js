@@ -5,6 +5,7 @@ import Layout from "./app/pages/Layout";
 import Home from "./app/pages/Home";
 import Account from "./app/pages/Account";
 import NoPage from "./app/pages/NoPage";
+import PhoneLogin from "./app/pages/PhoneLogin";
 
 function App() {
   // ------------------ State ------------------

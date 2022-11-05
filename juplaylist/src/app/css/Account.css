@@ -1,0 +1,30 @@
+.account-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 50px;
+  padding-top: 0;
+}
+
+.mobile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 85%;
+}
+
+button {
+  background-color: #000;
+  color: #fff;
+  font-size: 1rem;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  border: none;
+  margin-top: 20px;
+  border-radius: 25px;
+}
