@@ -6,7 +6,7 @@ import Loading from "../components/Loading";
 function Home(props) {
   // ------------------ State ------------------
 
-  const [participants, setParticipants] = useState(0); // TODO: get participants from database each time there is a new connection
+  const [participants] = useState(0); // TODO: get participants from database each time there is a new connection
   const [UID] = useState("EYD7D3"); // TODO: get UID from database
   const [loading, setLoading] = useState(true);
   const [platform, setPlatform] = useState(null);

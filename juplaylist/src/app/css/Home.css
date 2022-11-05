@@ -14,7 +14,7 @@
   flex-direction: row;
 }
 
-.home-header p {
+.home-header .header-element p {
   font-size: 1.1rem;
   font-weight: 400;
   font-family: "Poppins", sans-serif;
