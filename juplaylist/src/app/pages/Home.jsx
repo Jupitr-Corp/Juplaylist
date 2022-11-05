@@ -18,17 +18,17 @@ function Home(props) {
     " Join our playlist at https://juplaylist.com/Join/" + UID + " !"; //TODO: choose url format
 
   // ------- Functions ------
-  const addParticipant = () => {
-    setParticipants(participants + 1);
-  };
+  // const addParticipant = () => {
+  //   setParticipants(participants + 1);
+  // };
 
-  const removeParticipant = () => {
-    setParticipants(participants - 1);
-  };
+  // const removeParticipant = () => {
+  //   setParticipants(participants - 1);
+  // };
 
-  const resetParticipants = () => {
-    setParticipants(0);
-  };
+  // const resetParticipants = () => {
+  //   setParticipants(0);
+  // };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shareUrl);
