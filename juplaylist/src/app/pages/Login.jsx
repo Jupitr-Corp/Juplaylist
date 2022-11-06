@@ -1,11 +1,19 @@
 import React from "react";
 import hands_phone from "../assets/illustrations/Hands-Phone.png";
 import PhoneInput from "../components/PhoneInput";
-import "../css/Account.css";
+import "../css/Login.css";
 import { authentication } from "../components/firebase-config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
-function Account(props) {
+function Login(props) {
+  const navigate = useNavigate();
+  console.log("login");
+  console.log(authentication.currentUser);
+  if (authentication.currentUser !== null) {
+    console.log("User is already logged in");
+    navigate("/home");
+  }
   const [phoneNumber, setPhoneNumber] = React.useState("");
 
   const generateRecaptchaVerifier = () => {
@@ -35,6 +43,7 @@ function Account(props) {
         .then((confirmationResult) => {
           console.log(confirmationResult);
           window.confirmationResult = confirmationResult;
+          navigate("/login/phone");
         })
         .catch((error) => {
           // Error; SMS not sent
@@ -59,4 +68,4 @@ function Account(props) {
   );
 }
 
-export default Account;
+export default Login;
