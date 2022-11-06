@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/Home.css";
 import HomeHeader from "../components/HomeHeader";
 import Loading from "../components/Loading";
+import Joining from "../components/Joining";
 
 function Home(props) {
   // ------------------ State ------------------
@@ -77,13 +78,16 @@ function Home(props) {
   }
 
   return (
-    <HomeHeader
-      setLoading={setLoading}
-      platform={platform}
-      participants={participants}
-      SmsRequest={SmsRequest}
-      copyToClipboard={copyToClipboard}
-    />
+    <>
+      <Joining />
+      {/* <HomeHeader
+        setLoading={setLoading}
+        platform={platform}
+        participants={participants}
+        SmsRequest={SmsRequest}
+        copyToClipboard={copyToClipboard}
+      /> */}
+    </>
   );
 }
 
