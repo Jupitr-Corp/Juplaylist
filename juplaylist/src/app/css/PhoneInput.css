@@ -1,6 +1,6 @@
 /* Path: juplaylist/src/app/css/PhoneInput.css */
 
-.phoneInput {
+.phone-input-field {
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   padding: 5px 10px 10px 10px;
@@ -8,13 +8,13 @@
   padding-bottom: 12px;
 }
 
-.phoneInput > div {
+.phone-input-field > div {
   display: flex;
   gap: 5px;
   flex-direction: row;
 }
 
-.phoneInput legend {
+.phone-input-field legend {
   color: #000;
   font-weight: 600;
   margin-left: 15px;
@@ -22,19 +22,19 @@
   padding: 0 5px;
 }
 
-.phoneInput > div > p {
+.phone-input-field > div > p {
   color: #808080;
 }
 
-.phoneInput hr {
+.phone-input-field hr {
   border: #e0e0e0 0.5px solid;
 }
 
-.phoneInput input::placeholder {
+.phone-input-field input::placeholder {
   color: #e0e0e0;
 }
 
-.phoneInput input {
+.phone-input-field input {
   border: none;
   font-size: 1rem;
   width: 100%;
