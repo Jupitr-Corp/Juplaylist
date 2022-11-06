@@ -11,8 +11,8 @@ function Joining(props) {
       </div>
       <div className="event-field">
         <fieldset>
-          <legend>Mobile</legend>
-          <input type="tel" maxLength={10} placeholder="0X XX XX XX XX" />
+          <legend>Event UID</legend>
+          <input type="tel" maxLength={10} placeholder="Rejoins-nous!" />
         </fieldset>
         <button>Join</button>
       </div>
