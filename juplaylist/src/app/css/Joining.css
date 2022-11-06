@@ -1,0 +1,131 @@
+.joining {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+}
+
+.joining .header {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  padding: 30px 30px 0 30px;
+}
+
+.joining .header h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  padding-bottom: 20px;
+}
+
+.joining .header img {
+  min-width: 220px;
+  max-width: 300px;
+  height: auto;
+  width: 15vw;
+  margin-bottom: 20px;
+}
+
+.event-field,
+.create-field {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.event-field fieldset {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 30%;
+  font-family: "Poppins", sans-serif;
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  padding: 5px 10px 10px 10px;
+  margin-bottom: 20px;
+}
+
+.event-field legend {
+  margin-left: 10px;
+  padding: 0 5px;
+}
+
+.event-field input {
+  border: none;
+  font-size: 1rem;
+  width: 100%;
+  background-color: transparent;
+  font-family: "Poppins", sans-serif;
+}
+
+.event-field input:focus {
+  outline: none;
+}
+
+.joining button {
+  width: 20%;
+  border: none;
+  border-radius: 25px;
+  background-color: #000;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.joining button:hover {
+  background-color: #808080;
+}
+
+.joining .separator {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 30%;
+  padding: 30px 0;
+}
+
+.separator hr {
+  border: #808080 0.5px solid;
+  width: 100%;
+}
+
+.separator p {
+  color: #808080;
+  font-family: "Poppins", sans-serif;
+  padding: 0 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .joining .header h2 {
+    font-size: 1.2rem;
+  }
+
+  .joining .header img {
+    width: 25vw;
+  }
+
+  .event-field fieldset {
+    width: 70%;
+  }
+
+  .joining button {
+    width: 50%;
+  }
+
+  .joining .separator {
+    width: 70%;
+  }
+}

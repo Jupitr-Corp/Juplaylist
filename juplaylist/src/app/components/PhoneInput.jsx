@@ -3,7 +3,7 @@ import "../css/PhoneInput.css";
 
 function PhoneInput({ onTextChange, code, ...props }) {
   return (
-    <fieldset className="phoneInput">
+    <fieldset className="phone-input-field">
       <legend>Mobile</legend>
       <div>
         <p>{code}</p>
