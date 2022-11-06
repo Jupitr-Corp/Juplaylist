@@ -1,0 +1,21 @@
+.phone-login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.phone-login-container .images {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-login-container .images .image {
+  width: 60%;
+}
+
+.phone-login-container .OtpInput {
+  margin-top: 25px;
+}
