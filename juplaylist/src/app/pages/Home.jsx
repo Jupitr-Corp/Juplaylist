@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../css/Home.css";
-import HomeHeader from "../components/HomeHeader";
+import HomeBase from "../components/HomeBase";
 import Loading from "../components/Loading";
 import Joining from "../components/Joining";
 
@@ -9,6 +9,7 @@ function Home(props) {
 
   const [participants] = useState(0); // TODO: get participants from database each time there is a new connection
   const [UID] = useState("EYD7D3"); // TODO: get UID from database
+  const [isInEvent] = useState(true); // TODO: get isInEvent from database
   const [loading, setLoading] = useState(true);
   const [platform, setPlatform] = useState(null);
   const [SmsRequest, setSmsRequest] = useState(null);
@@ -19,21 +20,6 @@ function Home(props) {
     " Join our playlist at https://juplaylist.com/Join/" + UID + " !"; //TODO: choose url format
 
   // ------- Functions ------
-  // const addParticipant = () => {
-  //   setParticipants(participants + 1);
-  // };
-
-  // const removeParticipant = () => {
-  //   setParticipants(participants - 1);
-  // };
-
-  // const resetParticipants = () => {
-  //   setParticipants(0);
-  // };
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(shareUrl);
-  };
 
   const getOs = () => {
     const ua = navigator.userAgent;
@@ -77,17 +63,18 @@ function Home(props) {
     return <Loading />;
   }
 
+  if (!isInEvent) {
+    return <Joining />;
+  }
+
   return (
-    <>
-      <Joining />
-      {/* <HomeHeader
-        setLoading={setLoading}
-        platform={platform}
-        participants={participants}
-        SmsRequest={SmsRequest}
-        copyToClipboard={copyToClipboard}
-      /> */}
-    </>
+    <HomeBase
+      participants={participants}
+      SmsRequest={SmsRequest}
+      platform={platform}
+      setLoading={setLoading}
+      shareUrl={shareUrl}
+    />
   );
 }
 
