@@ -1,17 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import sentSMS from "../assets/illustrations/Hands-Message_Sent.png";
+import "../css/PhoneLogin.css";
+import OTPInput from "../components/OTPInput";
 
 function PhoneLogin(props) {
   const navigate = useNavigate();
 
   if (window.confirmationResult === undefined) {
-    //navigate("/login");
+    navigate("/login");
   }
 
   const verifyOTP = (code) => {
-    console.log(code);
     if (code.length === 6) {
+      console.log(code);
       window.confirmationResult
         .confirm(code)
         .then((result) => {
@@ -26,13 +28,25 @@ function PhoneLogin(props) {
 
   return (
     <div className="phone-login-container">
-      <div>
-        <img src={sentSMS} alt="hands with phone" />
+      <div className="images">
+        <img className="image" src={sentSMS} alt="hands with phone" />
       </div>
       <div className="mobile-container">
-        <h3>Enter your phone number</h3>
-        <p>We will send you the one time pin</p>
-        <input type="text" onChange={(e) => verifyOTP(e.target.value)} />
+        <h3>We have sent you the verification code</h3>
+        <p>
+          Did not receive anything ?{" "}
+          <span
+            className="underline cursor"
+            onClick={() => console.log("test")}
+          >
+            Retry
+          </span>
+        </p>
+        <OTPInput
+          className="OtpInput"
+          numberInput={6}
+          onChange={(final) => verifyOTP(final)}
+        ></OTPInput>
       </div>
     </div>
   );

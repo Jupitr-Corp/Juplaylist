@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 function Login(props) {
   const navigate = useNavigate();
-
+  console.log("login");
+  console.log(authentication.currentUser);
   if (authentication.currentUser !== null) {
     console.log("User is already logged in");
     navigate("/home");

@@ -18,3 +18,11 @@
     transform: rotate(360deg);
   }
 }
+
+.underline {
+  text-decoration: underline;
+}
+
+.cursor {
+  cursor: pointer;
+}
