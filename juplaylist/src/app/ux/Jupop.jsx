@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FiX } from "react-icons/fi";
 import "../css/Jupop.css";
 
@@ -6,14 +6,15 @@ function Jupop(props) {
   const { message, backgroundColor, visibility, setVisibility } = props;
 
   // ------------------ States ------------------
-
+  const [disappear, setDisappear] = useState(null);
   // ------------------ Effects  ------------------
-  let viAnim;
   useEffect(() => {
     if (visibility === "visible") {
-      viAnim = setTimeout(() => {
-        setVisibility("hidden");
-      }, 3000);
+      setDisappear(
+        setTimeout(() => {
+          setVisibility("hidden");
+        }, 3000)
+      );
     }
   }, [visibility, setVisibility]);
 
@@ -26,7 +27,8 @@ function Jupop(props) {
         className="jupop-button"
         onClick={() => {
           setVisibility("hidden");
-          clearTimeout(viAnim);
+          clearTimeout(disappear);
+          setDisappear(null);
         }}
       >
         <FiX className="x-icon" color="color" />
