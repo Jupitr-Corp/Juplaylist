@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import HomeHeader from "./HomeHeader";
 import ToggleSwitch from "./ToggleSwitch";
 
+
 function HomeBase(props) {
   const { participants, SmsRequest, platform, setLoading, shareUrl } = props;
 
   // ------- State ------
   const [isPlaylist, setIsPlaylist] = useState(true);
+
   // ------------------------  Functions  ------------------------------
 
   const copyToClipboard = () => {
@@ -39,6 +41,7 @@ function HomeBase(props) {
       />
       <ToggleSwitch playlist={isPlaylist} setPlaylist={setIsPlaylist} />
     </>
+
   );
 }
 
