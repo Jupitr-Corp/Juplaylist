@@ -4,25 +4,12 @@ import { FiUsers, FiShare } from "react-icons/fi";
 import Jupop from "../ux/Jupop";
 
 function HomeHeader(props) {
-  const { participants, SmsRequest, copyToClipboard, platform, setLoading } =
-    props;
+  const { participants, SmsRequest, copyToClipboard, platform } = props;
 
   // ------------------ States ------------------
 
   const [showPop, setShowPop] = useState("hidden");
   // ------------------ Effects ------------------
-
-  useEffect(() => {
-    if (
-      (platform !== "Android" && platform !== "iOS" && platform !== "Other") ||
-      SmsRequest === "undefined" ||
-      participants === "undefined"
-    ) {
-      setLoading(true);
-    } else {
-      setLoading(false);
-    }
-  }, [platform, participants, SmsRequest, setLoading]);
 
   // ------------------ Render ------------------
 
