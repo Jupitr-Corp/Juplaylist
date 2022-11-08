@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../css/Home.css";
 import { FiUsers, FiShare } from "react-icons/fi";
 import Jupop from "../ux/Jupop";

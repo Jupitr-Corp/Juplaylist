@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import HomeHeader from "./HomeHeader";
+import ToggleSwitch from "./ToggleSwitch";
+
 
 function HomeBase(props) {
   const { participants, SmsRequest, platform, setLoading, shareUrl } = props;
+
+  // ------- State ------
+  const [isPlaylist, setIsPlaylist] = useState(true);
 
   // ------------------------  Functions  ------------------------------
 
@@ -27,12 +32,16 @@ function HomeBase(props) {
   // ------------------ Render ------------------
 
   return (
-    <HomeHeader
-      platform={platform}
-      participants={participants}
-      SmsRequest={SmsRequest}
-      copyToClipboard={copyToClipboard}
-    />
+    <>
+      <HomeHeader
+        platform={platform}
+        participants={participants}
+        SmsRequest={SmsRequest}
+        copyToClipboard={copyToClipboard}
+      />
+      <ToggleSwitch playlist={isPlaylist} setPlaylist={setIsPlaylist} />
+    </>
+
   );
 }
 

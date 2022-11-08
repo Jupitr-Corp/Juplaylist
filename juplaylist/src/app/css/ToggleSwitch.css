@@ -1,0 +1,74 @@
+.toggle-switch {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  padding: 20px 0;
+  height: 100px;
+}
+
+.toggle-switch .switch {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-evenly;
+  min-width: 230px;
+  max-width: 260px;
+  width: 20vw;
+  height: 100%;
+  background-color: #f7f7f7;
+  border-radius: 50px;
+}
+
+.toggle-switch .switch .left,
+.toggle-switch .switch .right {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.toggle-switch .switch .bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #e0e0e0;
+  border-radius: 50px;
+  z-index: 1;
+}
+
+.toggle-switch .switch .slide-left {
+  animation: slideToLeft 0.3s ease forwards;
+}
+
+.toggle-switch .switch .slide-right {
+  animation: slideToRight 0.3s ease forwards;
+}
+
+@keyframes slideToLeft {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideToRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
