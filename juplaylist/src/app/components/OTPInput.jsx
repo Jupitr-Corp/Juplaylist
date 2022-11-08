@@ -5,6 +5,10 @@ export default function OTPInput({ numberInput, onChange, ...props }) {
   const [values, setValues] = React.useState(Array(numberInput).fill(""));
   const focus = React.useRef([]);
 
+  React.useEffect(() => {
+    onChange(values.join(""));
+  }, [values]);
+
   const onInputChange = (e, index) => {
     if ((e.keyCode < 48 || e.keyCode > 57) && e.keyCode !== 8) {
       return;
@@ -28,7 +32,6 @@ export default function OTPInput({ numberInput, onChange, ...props }) {
         return newValues;
       });
     }
-    onChange(values.join(""));
   };
 
   const generateInputs = () => {

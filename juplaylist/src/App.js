@@ -1,6 +1,6 @@
 import React from "react";
 import "./app/css/App.css";
-import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./app/pages/Layout";
 import Home from "./app/pages/Home";
 import Login from "./app/pages/Login";
@@ -8,12 +8,6 @@ import NoPage from "./app/pages/NoPage";
 import PhoneLogin from "./app/pages/PhoneLogin";
 
 function App() {
-  // ------------------ State ------------------
-
-  // ------------------ Functions ------------------
-
-  // ------------------ Effects ------------------
-
   // ------------------ Render ------------------
   return (
     <BrowserRouter>

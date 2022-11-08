@@ -7,9 +7,11 @@ import OTPInput from "../components/OTPInput";
 function PhoneLogin(props) {
   const navigate = useNavigate();
 
-  if (window.confirmationResult === undefined) {
-    navigate("/login");
-  }
+  React.useEffect(() => {
+    if (window.confirmationResult === undefined) {
+      navigate("/login");
+    }
+  }, []);
 
   const verifyOTP = (code) => {
     if (code.length === 6) {
