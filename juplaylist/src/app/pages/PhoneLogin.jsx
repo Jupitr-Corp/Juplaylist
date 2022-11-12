@@ -15,7 +15,6 @@ function PhoneLogin(props) {
 
   const verifyOTP = (code) => {
     if (code.length === 6) {
-      console.log(code);
       window.confirmationResult
         .confirm(code)
         .then((result) => {

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "../css/Home.css";
 import HomeBase from "../components/HomeBase";
 import Loading from "../components/Loading";
 import Joining from "../components/Joining";

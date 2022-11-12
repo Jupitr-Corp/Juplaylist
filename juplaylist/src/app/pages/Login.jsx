@@ -10,10 +10,12 @@ function Login(props) {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (authentication.currentUser !== null) {
-      console.log("User is already logged in");
-      navigate("/home");
-    }
+    authentication.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("User is already logged in");
+        navigate("/account");
+      }
+    });
   }, []);
 
   const [phoneNumber, setPhoneNumber] = React.useState("");

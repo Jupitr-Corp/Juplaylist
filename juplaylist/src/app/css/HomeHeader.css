@@ -1,0 +1,51 @@
+.home-header {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.home-header .header-element {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-direction: row;
+}
+
+.home-header .header-element p {
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+}
+
+.invite {
+  justify-content: flex-end;
+}
+
+.invite-link {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: black;
+  text-decoration: none;
+}
+
+.home-header-icon {
+  color: black;
+  min-height: 23px;
+  max-height: 50px;
+  height: 50%;
+  width: auto;
+}
+
+.invite-link:hover {
+  transform: scale(1.05);
+}
+
+.participants {
+  gap: 10px;
+}
