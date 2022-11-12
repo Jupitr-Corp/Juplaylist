@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import HomeHeader from "./HomeHeader";
 import ToggleSwitch from "./ToggleSwitch";
 import PlaylistSide from "./PlaylistSide";
+import SearchSide from "./SearchSide";
 import "../css/Homebase.css";
 import { toast, Slide } from "react-toastify";
 
@@ -52,7 +53,7 @@ function HomeBase(props) {
         {isPlaylist ? (
           <PlaylistSide participants={participants} setLoading={setLoading} />
         ) : (
-          <div className="home__side"></div>
+          <SearchSide />
         )}
       </div>
     </>
