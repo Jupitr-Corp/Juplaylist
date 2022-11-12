@@ -14,7 +14,7 @@ function Navbar(props) {
         <div className="name header-element">
           <h1>Juplaylist</h1>
         </div>
-        <Link to="/Account" className="user header-element">
+        <Link to="/account" className="user header-element">
           <FiUser className="user-icon" />
         </Link>
       </nav>

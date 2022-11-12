@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import "../css/Home.css";
+import "../css/HomeHeader.css";
 import { FiUsers, FiShare } from "react-icons/fi";
-import Jupop from "../ux/Jupop";
 
 function HomeHeader(props) {
   const { participants, SmsRequest, copyToClipboard, platform } = props;
 
   // ------------------ States ------------------
-
-  const [showPop, setShowPop] = useState("hidden");
   // ------------------ Effects ------------------
 
   // ------------------ Render ------------------
@@ -19,12 +16,7 @@ function HomeHeader(props) {
         <p>{participants}</p>
         <FiUsers className="home-header-icon" />
       </div>
-      <div
-        className="header-element invite"
-        onClick={() => {
-          setShowPop("visible");
-        }}
-      >
+      <div className="header-element invite">
         {(() => {
           if (platform === "Android") {
             return (
@@ -58,13 +50,6 @@ function HomeHeader(props) {
           }
         })()}
       </div>
-      <Jupop
-        message="UID copied to clipboard!"
-        color="white"
-        backgroundColor="#0F730C"
-        visibility={showPop}
-        setVisibility={setShowPop}
-      />
     </div>
   );
 }

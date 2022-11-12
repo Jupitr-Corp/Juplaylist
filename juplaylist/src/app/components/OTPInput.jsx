@@ -47,6 +47,7 @@ export default function OTPInput({ numberInput, onChange, ...props }) {
           onKeyDown={(e) => {
             onInputChange(e, i);
           }}
+          onChange={() => {}} // to avoid warning
           className="otp-input"
         />
       );

@@ -1,0 +1,140 @@
+.playlist-container {
+  padding: 20px 0;
+  width: 100%;
+}
+
+.playlist-container,
+.playlist-container .player-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.playlist-container .player-container {
+  width: 70%;
+}
+
+.player-container .current-song {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+  padding-bottom: 30px;
+}
+
+.current-song .cover-song {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.current-song .cover-song img {
+  font-size: 0px;
+  width: 120px;
+  height: 120px;
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f7f7f7;
+}
+
+.current-song .song-infos {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.current-song .song-infos h4 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.current-song .song-infos h5 {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #808080;
+}
+
+.player-container .player-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40%;
+  width: 100%;
+  max-width: 300px;
+  min-width: 200px;
+  padding: 10px 0;
+}
+
+.player-container .player-controls .player-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.player-container .player-controls .player-button:hover {
+  transform: scale(1.05);
+  background-color: #808080;
+}
+
+.player-container .player-controls .player-button span {
+  font-size: 1rem;
+  color: white;
+  font-weight: 500;
+  padding: 5px 10px;
+}
+
+/* media */
+
+@media screen and (max-width: 768px) {
+  .playlist-container {
+    width: 100%;
+  }
+
+  .current-song .cover-song {
+    display: flex;
+    flex: 2;
+  }
+  .current-song .song-infos {
+    flex: 3;
+  }
+
+  .current-song .cover-song img {
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+  }
+
+  .player-container .player-controls {
+    gap: 0%;
+    justify-content: space-between;
+  }
+}
+
+/* animations */
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
