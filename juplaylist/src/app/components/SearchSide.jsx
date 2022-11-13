@@ -1,10 +1,11 @@
 import React from "react";
-import youtube from "../apis/youtube";
+import SearchBar from "./SearchBar";
 
 function SearchSide(props) {
   return (
     <div>
       <p>Search Side</p>
+      <SearchBar />
     </div>
   );
 }
