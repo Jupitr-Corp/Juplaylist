@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import HomeBase from "../components/HomeBase";
 import Loading from "../components/Loading";
 import Joining from "../components/Joining";
+import { getData } from "../components/RequestComponent";
 
 function Home(props) {
   // ------------------ State ------------------
@@ -18,6 +19,13 @@ function Home(props) {
   const shareUrl =
     " Join our playlist at https://juplaylist.com/Join/" + UID + " !"; //TODO: choose url format
 
+  //TO remove
+
+  React.useEffect(() => {
+    getData("events/0", (result) => console.log(result));
+  }, []);
+
+  //end TO remove
   // ------- Functions ------
 
   const getOs = () => {
