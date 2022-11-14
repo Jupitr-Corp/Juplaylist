@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import HomeBase from "../components/HomeBase";
-import Loading from "../components/Loading";
 import Joining from "../components/Joining";
 import { getData } from "../components/RequestComponent";
+import { RequestContext } from "../components/RequestComponent";
+import Loading from "../components/Loading";
 
 function Home(props) {
+  // ------- Context ------
+
+  const { loading, setLoading } = useContext(RequestContext);
+
   // ------------------ State ------------------
 
   const [participants] = useState(0); // TODO: get participants from database each time there is a new connection
   const [UID] = useState("EYD7D3"); // TODO: get UID from database
   const [isInEvent] = useState(true); // TODO: get isInEvent from database
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [platform, setPlatform] = useState(null);
   const [SmsRequest, setSmsRequest] = useState(null);
 
@@ -51,8 +56,6 @@ function Home(props) {
   }, [setPlatform, setSmsRequest, platform, shareUrl]);
 
   useEffect(() => {
-    if (platform === undefined) return;
-
     if (
       (platform !== "Android" && platform !== "iOS" && platform !== "Other") ||
       SmsRequest === "undefined" ||
@@ -62,7 +65,7 @@ function Home(props) {
     } else {
       setLoading(false);
     }
-  }, [platform, SmsRequest, participants]);
+  }, [platform, SmsRequest, participants, setLoading]);
 
   // ------------------ Render ------------------
 
