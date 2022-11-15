@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Queue from "./Queue";
 import "../css/PlaylistSide.css";
+import { RequestContext } from "./RequestComponent";
 
 function PlaylistSide(props) {
-  const { participants, setLoading } = props;
-
+  const { participants } = props;
+  const { setLoading } = useContext(RequestContext);
   // ------- State ------
   const [isAdmin] = React.useState(true); // TODO get from db
   const [nbvotes, setNbvotes] = React.useState(0);

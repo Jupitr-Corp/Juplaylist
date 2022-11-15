@@ -1,7 +1,7 @@
-import React from "react";
+import React, { createContext } from "react";
 import { get, set, getDatabase, ref, child } from "firebase/database";
 import { app } from "../components/firebase-config";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast, Slide, Bounce } from "react-toastify";
 
 export const dbRef = getDatabase(app);
 
@@ -64,27 +64,35 @@ const goodIssue = () => {
 const errorIssue = (error) => {
   //Here make some thing about errors issues
   toast.error(error.message, {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
     theme: "colored",
+    transition: Bounce,
+    autoClose: false,
   });
 };
 
+export const RequestContext = createContext();
+
 export default function Request(props) {
+  let [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    console.log(loading);
+  }, [loading]);
+
   return (
-    <>
+    <RequestContext.Provider value={{ loading, setLoading }}>
       <ToastContainer
         limit={5}
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
+        transition={Slide}
         closeOnClick
+        pauseOnHover
+        draggable
+        position="bottom-right"
+        theme="light"
       />
       {props.children}
-    </>
+    </RequestContext.Provider>
   );
 }
