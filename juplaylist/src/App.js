@@ -20,7 +20,7 @@ function App() {
             <Route
               index
               element={
-                <PrivateRoute path="/login">
+                <PrivateRoute path="/">
                   <Home />
                 </PrivateRoute>
               }

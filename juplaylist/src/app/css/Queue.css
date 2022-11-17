@@ -152,7 +152,15 @@
   text-transform: uppercase;
 }
 
-.queue-item .queue-item-votes {
+.next-votes {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.queue-item-votes {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -162,12 +170,12 @@
   gap: 10px;
 }
 
-.queue-item .queue-item-votes svg {
+.queue-item-votes svg {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
 
-.queue-item .queue-item-votes svg:hover {
+.queue-item-votes svg:hover {
   transform: scale(1.2);
 }
 

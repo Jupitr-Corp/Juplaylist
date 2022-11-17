@@ -14,11 +14,14 @@ function PlaylistSide(props) {
   const [songTitle, setSongTitle] = React.useState("I wanna be yours"); //TODO get info from db
   const [songArtist, setSongArtist] = React.useState("Artic Monkeys"); //TODO get info from db
   const [songCover, setSongCover] = React.useState("./covers/cover.webp"); //TODO get info from db
+  const [songDuration, setSongDuration] = React.useState(180); //TODO get info from db
+  const [currentTime, setCurrentTime] = React.useState(0); // TODO get info from db
   const [queue, setQueue] = React.useState([
     {
       title: "yes",
       artist: "Artic Monkeys",
       cover: "./covers/cover2.webp",
+      duration: 180,
       likes: [],
       dislikes: [],
     },
@@ -26,6 +29,7 @@ function PlaylistSide(props) {
       title: "yes",
       artist: "Artic Monkeys",
       cover: "./covers/cover2.webp",
+      duration: 120,
       likes: [],
       dislikes: [],
     },
@@ -33,6 +37,7 @@ function PlaylistSide(props) {
       title: "yes",
       artist: "Artic Monkeys",
       cover: "./covers/cover2.webp",
+      duration: 257,
       likes: [],
       dislikes: [],
     },
@@ -40,6 +45,7 @@ function PlaylistSide(props) {
       title: "A COLORS SHOW",
       artist: "BB Jacques",
       cover: "./covers/cover.webp",
+      duration: 180,
       likes: [],
       dislikes: [],
     },
@@ -47,6 +53,7 @@ function PlaylistSide(props) {
       title: "yes",
       artist: "Artic Monkeys",
       cover: "./covers/cover2.webp",
+      duration: 180,
       likes: [],
       dislikes: [],
     },
@@ -54,14 +61,18 @@ function PlaylistSide(props) {
       title: "yes",
       artist: "Artic Monkeys",
       cover: "./covers/cover2.webp",
+      duration: 180,
       likes: [],
       dislikes: [],
     },
-  ]);
+  ]); // TODO get from db
+  const [songLocked, setSongLocked] = React.useState(false); // TODO get from db
+  //when the song is locked, the user can't vote anymore, the song is locked when the current song is at 30s before the end
 
   // ------- Functions ------
 
   const handleVote = () => {
+    if (songCover == "") return;
     if (!asVoted) {
       setNbvotes(nbvotes + 1);
       setAsVoted(true);
@@ -72,11 +83,12 @@ function PlaylistSide(props) {
   };
 
   const handlePlay = () => {
+    if (songCover == "") return;
     setIsPlaying(!isPlaying);
   };
 
   const getVote = () => {
-    if (nbvotes !== 0) {
+    if (nbvotes !== 0 && participants !== 0) {
       return nbvotes + "/" + participants;
     }
   };
@@ -98,8 +110,15 @@ function PlaylistSide(props) {
       setSongTitle(queue[0].title);
       setSongArtist(queue[0].artist);
       setSongCover(queue[0].cover);
+      setSongDuration(queue[0].duration);
       setQueue(queue.slice(1));
+      setSongLocked(false);
+      setCurrentTime(0); // TODO see from where we get the info
     }
+  };
+
+  const handleLock = () => {
+    setSongLocked(!songLocked);
   };
 
   // ------- Effects --------
@@ -139,6 +158,12 @@ function PlaylistSide(props) {
     }
   }, [nbvotes, participants, setNbvotes, setAsVoted]);
 
+  React.useEffect(() => {
+    if (!songLocked && currentTime >= songDuration * 0.8) {
+      handleLock();
+    }
+  }, [currentTime, songDuration]);
+
   // ------- Render ------
   return (
     <div className="playlist-container">
@@ -164,15 +189,12 @@ function PlaylistSide(props) {
             style={{
               display: isAdmin ? "flex" : "none",
             }}
-            onClick={songCover !== "" ? handlePlay : null}
+            onClick={handlePlay}
             className="player-button"
           >
             <span>{isPlaying ? "Pause" : "Play"}</span>
           </div>
-          <div
-            className="player-button"
-            onClick={songCover !== "" ? handleVote : null}
-          >
+          <div className="player-button" onClick={handleVote}>
             <span>{handleVoteText()}</span>
             <span style={{ display: nbvotes === 0 ? "none" : "block" }}>
               {getVote()}
@@ -180,7 +202,7 @@ function PlaylistSide(props) {
           </div>
         </div>
       </section>
-      <Queue queue={queue} setQueue={setQueue} />
+      <Queue queue={queue} setQueue={setQueue} songLocked={songLocked} />
     </div>
   );
 }

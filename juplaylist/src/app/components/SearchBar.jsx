@@ -1,5 +1,8 @@
 import React from "react";
+import "../css/SearchBar.css";
 import { get } from "../apis/youtube";
+import { FiSearch } from "react-icons/fi";
+import CustomToast from "../ux/Toast";
 
 function SearchBar(props) {
   // ------------------------  State  ------------------------------
@@ -9,7 +12,7 @@ function SearchBar(props) {
 
   // ------------  Functions  -----------------
 
-  const handleSubmit = () => {
+  const handleQuery = () => {
     if (query === lastQuery) {
       return;
     }
@@ -40,6 +43,28 @@ function SearchBar(props) {
     });
   };
 
+  const handleButtonClick = () => {
+    if (query === "") {
+      CustomToast.info("Please search for something"); // TODO remove after developing you dumbass
+      return;
+    }
+    handleQuery();
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleButtonClick();
+    }
+  };
+
+  // -------------- Effects --------------
+
+  React.useEffect(() => {
+    if (query === "") {
+      setVideo([]);
+    }
+  }, [query, setVideo]);
+
   // React.useEffect(() => {
   // const timer = setTimeout(() => {
   //   if (query) {
@@ -50,36 +75,24 @@ function SearchBar(props) {
   // return () => clearTimeout(timer);
   // }, [query]);
 
-  // -------------- Effects --------------
-
-  React.useEffect(() => {
-    if (query === "") {
-      setVideo([]);
-    }
-  }, [query, setVideo]);
-
   // ------------------ Render ------------------
 
   return (
     <div>
-      <label htmlFor="search">Search</label>
-      <input
-        type="text"
-        id="search"
-        name="search"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button
-        onClick={() => {
-          if (query === "") {
-            return;
-          }
-          handleSubmit();
-        }}
-      >
-        Search
-      </button>
+      <div className="search-input">
+        <input
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Drake, Bad Habit, Elvis..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+        <button onClick={handleButtonClick}>
+          <FiSearch size={20} color={"#808080"} />
+        </button>
+      </div>
       <ul>
         {video !== [] &&
           video.map((video) => <li key={video.id}>{video.title}</li>)}

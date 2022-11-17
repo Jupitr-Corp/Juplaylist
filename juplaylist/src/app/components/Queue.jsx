@@ -4,11 +4,13 @@ import SleepSvg from "../assets/illustrations/sleep.svg";
 import { FiArrowUpCircle, FiArrowDownCircle } from "react-icons/fi";
 
 function Queue(props) {
-  const { queue, setQueue } = props;
+  const { queue, setQueue, songLocked } = props;
 
   // ------- State ------
   const [userId] = React.useState("5f9f9f9f9f9f9f9f9f9f9f9f"); // TODO get from db
+
   // ------- Functions ------
+  let firstVal;
 
   // TODO BIG, handle the moment where the next song is locked and
   //no votes will be taken into account
@@ -38,6 +40,10 @@ function Queue(props) {
         );
       }
     }
+
+    if (songLocked) {
+      firstVal = newQueue.shift();
+    }
     newQueue.sort((a, b) => {
       return (
         b.likes.length -
@@ -45,7 +51,8 @@ function Queue(props) {
         (b.dislikes.length - a.dislikes.length)
       );
     });
-
+    // newQueue = firstVal + newQueue;
+    if (firstVal) newQueue.unshift(firstVal);
     setQueue(newQueue);
   };
 
@@ -106,15 +113,44 @@ function Queue(props) {
   return (
     <div className="queue">
       <section className="next-container">
-        {(queue.length > 0 && <p>Next</p>) || <p>No song to pe played</p>}
+        {queue.length <= 0 && <p>No song to pe played</p>}
         {queue.length > 0 && (
           <>
             <img src={queue[0].cover} alt="music cover" />
             <div className="next-info">
               <p>{queue[0].title}</p>
               <h6>{queue[0].artist}</h6>
-              {/* TODO add buttons to vote (like, dislike) while the next song is not locked */}
             </div>
+            {(!songLocked && (
+              <div className="next-votes">
+                <div className="queue-item-votes">
+                  <FiArrowUpCircle
+                    size={25}
+                    onClick={() => {
+                      handleVote(0, "up");
+                    }}
+                    color={queue[0].likes.includes(userId) ? "#000" : "#808080"}
+                  />
+                  <span className="queue-item-votes-number">
+                    {queue[0].likes.length}
+                  </span>
+                </div>
+                <div className="queue-item-votes">
+                  <FiArrowDownCircle
+                    size={25}
+                    onClick={() => {
+                      handleVote(0, "down");
+                    }}
+                    color={
+                      queue[0].dislikes.includes(userId) ? "#000" : "#808080"
+                    }
+                  />
+                  <span className="queue-item-votes-number">
+                    {queue[0].dislikes.length}
+                  </span>
+                </div>
+              </div>
+            )) || <p>Coming next</p>}
           </>
         )}
       </section>
