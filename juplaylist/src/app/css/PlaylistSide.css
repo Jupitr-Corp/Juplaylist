@@ -17,6 +17,7 @@
 
 .player-container .current-song {
   display: flex;
+  flex: 1;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -25,37 +26,50 @@
   padding-bottom: 30px;
 }
 
-.current-song .cover-song {
+.current-song .cover-container {
   display: flex;
   flex: 1;
-  align-items: center;
   justify-content: flex-end;
   width: 100%;
+  height: 100%;
 }
 
-.current-song .cover-song img {
-  font-size: 0px;
+.current-song .cover-song {
+  display: flex;
+  align-items: center;
   width: 120px;
   height: 120px;
   max-width: 120px;
   max-height: 120px;
   border-radius: 50%;
-  object-fit: cover;
+  overflow: hidden;
   background-color: #f7f7f7;
+}
+
+.current-song .cover-song img {
+  font-size: 0px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transform: scale(2);
 }
 
 .current-song .song-infos {
   display: flex;
   flex: 1;
+  width: 100%;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 100%;
 }
 
 .current-song .song-infos h4 {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .current-song .song-infos h5 {
@@ -63,6 +77,10 @@
   font-weight: 400;
   text-transform: uppercase;
   color: #808080;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .player-container .player-controls {
@@ -132,9 +150,9 @@
 
 @keyframes rotate {
   0% {
-    transform: rotate(0deg);
+    transform: rotate(0deg) scale(2);
   }
   100% {
-    transform: rotate(360deg);
+    transform: rotate(360deg) scale(2);
   }
 }
