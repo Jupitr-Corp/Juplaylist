@@ -6,16 +6,16 @@ function ToggleSwitch(props) {
 
   // ------------------ States ------------------
   //
-  const [countRender, setCountRender] = useState(0);
+  const [countRenderToggle, setCountRenderToggle] = useState(0);
 
   // ------------------ Functions ------------------
 
   const bgClass = () => {
-    if (playlist && countRender > 2) {
+    if (playlist && countRenderToggle > 1) {
       // because of react strict mode, the first render is not counted : >2
       return "bg slide-left";
     }
-    if (!playlist && countRender > 2) {
+    if (!playlist && countRenderToggle > 1) {
       return "bg slide-right";
     }
     return "bg";
@@ -24,7 +24,7 @@ function ToggleSwitch(props) {
   // ------------------ Effects ------------------
 
   useEffect(() => {
-    setCountRender((c) => c + 1);
+    setCountRenderToggle((c) => c + 1);
   }, [playlist]);
 
   // ------------------ Render ------------------

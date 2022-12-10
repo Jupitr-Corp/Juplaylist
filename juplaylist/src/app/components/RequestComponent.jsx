@@ -9,7 +9,7 @@ export const getRef = (path) => {
   return ref(dbRef, path);
 };
 
-export const getChil = (path) => {
+export const getChild = (path) => {
   return child(dbRef, path);
 };
 
@@ -62,7 +62,6 @@ const goodIssue = () => {
 };
 
 const errorIssue = (error) => {
-  //Here make some thing about errors issues
   toast.error(error.message, {
     theme: "colored",
     transition: Bounce,
@@ -73,14 +72,62 @@ const errorIssue = (error) => {
 export const RequestContext = createContext();
 
 export default function Request(props) {
-  let [loading, setLoading] = React.useState(true);
+  // ------------------ States ------------------
 
-  React.useEffect(() => {
-    console.log(loading);
-  }, [loading]);
+  const [loading, setLoading] = React.useState(true);
+  const [queue, setQueue] = React.useState([]); // TODO get queue from db
+  const [songLocked, setSongLocked] = React.useState(false);
+  const [countRender, setCountRender] = React.useState(0);
+  const [nbvotes, setNbvotes] = React.useState(0);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [songTitle, setSongTitle] = React.useState(undefined); //TODO get info from db
+  const [songArtist, setSongArtist] = React.useState(undefined); //TODO get info from db
+  const [songCover, setSongCover] = React.useState(undefined); //TODO get info from db
+  const [songDuration, setSongDuration] = React.useState(undefined); //TODO get info from db
+  const [currentTime, setCurrentTime] = React.useState(0); // TODO get info from db
+  const [isPlaylist, setIsPlaylist] = React.useState(true);
+
+  // React.useEffect(() => {
+  //   console.log(loading);
+  // }, [loading]);
+
+  // React.useEffect(() => {
+  //   console.log(queue);
+  // }, [queue]);
+
+  // ------------------ Functions ------------------
+
+  // ------------------ Render ------------------
 
   return (
-    <RequestContext.Provider value={{ loading, setLoading }}>
+    <RequestContext.Provider
+      value={{
+        loading,
+        setLoading,
+        queue,
+        setQueue,
+        songLocked,
+        setSongLocked,
+        countRender,
+        setCountRender,
+        nbvotes,
+        setNbvotes,
+        isPlaying,
+        setIsPlaying,
+        songTitle,
+        setSongTitle,
+        songArtist,
+        setSongArtist,
+        songCover,
+        setSongCover,
+        songDuration,
+        setSongDuration,
+        currentTime,
+        setCurrentTime,
+        isPlaylist,
+        setIsPlaylist,
+      }}
+    >
       <ToastContainer
         limit={5}
         autoClose={3000}
@@ -92,6 +139,7 @@ export default function Request(props) {
         position="bottom-right"
         theme="light"
       />
+
       {props.children}
     </RequestContext.Provider>
   );

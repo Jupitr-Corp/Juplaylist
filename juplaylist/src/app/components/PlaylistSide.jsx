@@ -1,78 +1,40 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import Queue from "./Queue";
 import "../css/PlaylistSide.css";
 import { RequestContext } from "./RequestComponent";
 
 function PlaylistSide(props) {
   const { participants } = props;
-  const { setLoading } = useContext(RequestContext);
+  const {
+    setLoading,
+    queue,
+    setQueue,
+    songLocked,
+    setSongLocked,
+    nbvotes,
+    setNbvotes,
+    isPlaying,
+    setIsPlaying,
+    songTitle,
+    setSongTitle,
+    songArtist,
+    setSongArtist,
+    songCover,
+    setSongCover,
+    songDuration,
+    setSongDuration,
+    currentTime,
+    setCurrentTime,
+  } = useContext(RequestContext);
+
   // ------- State ------
   const [isAdmin] = React.useState(true); // TODO get from db
-  const [nbvotes, setNbvotes] = React.useState(0);
   const [asVoted, setAsVoted] = React.useState(false);
-  const [isPlaying, setIsPlaying] = React.useState(false);
-  const [songTitle, setSongTitle] = React.useState("I wanna be yours"); //TODO get info from db
-  const [songArtist, setSongArtist] = React.useState("Artic Monkeys"); //TODO get info from db
-  const [songCover, setSongCover] = React.useState("./covers/cover.webp"); //TODO get info from db
-  const [songDuration, setSongDuration] = React.useState(180); //TODO get info from db
-  const [currentTime, setCurrentTime] = React.useState(0); // TODO get info from db
-  const [queue, setQueue] = React.useState([
-    {
-      title: "yes",
-      artist: "Artic Monkeys",
-      cover: "./covers/cover2.webp",
-      duration: 180,
-      likes: [],
-      dislikes: [],
-    },
-    {
-      title: "yes",
-      artist: "Artic Monkeys",
-      cover: "./covers/cover2.webp",
-      duration: 120,
-      likes: [],
-      dislikes: [],
-    },
-    {
-      title: "yes",
-      artist: "Artic Monkeys",
-      cover: "./covers/cover2.webp",
-      duration: 257,
-      likes: [],
-      dislikes: [],
-    },
-    {
-      title: "A COLORS SHOW",
-      artist: "BB Jacques",
-      cover: "./covers/cover.webp",
-      duration: 180,
-      likes: [],
-      dislikes: [],
-    },
-    {
-      title: "yes",
-      artist: "Artic Monkeys",
-      cover: "./covers/cover2.webp",
-      duration: 180,
-      likes: [],
-      dislikes: [],
-    },
-    {
-      title: "yes",
-      artist: "Artic Monkeys",
-      cover: "./covers/cover2.webp",
-      duration: 180,
-      likes: [],
-      dislikes: [],
-    },
-  ]); // TODO get from db
-  const [songLocked, setSongLocked] = React.useState(false); // TODO get from db
-  //when the song is locked, the user can't vote anymore, the song is locked when the current song is at 30s before the end
 
   // ------- Functions ------
 
   const handleVote = () => {
-    if (songCover == "") return;
+    if (!songCover) return;
     if (!asVoted) {
       setNbvotes(nbvotes + 1);
       setAsVoted(true);
@@ -83,7 +45,7 @@ function PlaylistSide(props) {
   };
 
   const handlePlay = () => {
-    if (songCover == "") return;
+    if (!songCover) return;
     setIsPlaying(!isPlaying);
   };
 
@@ -101,11 +63,12 @@ function PlaylistSide(props) {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (queue.length === 0) {
       setSongTitle("It's calm here...");
       setSongArtist("Add some songs!");
-      setSongCover("");
+      setSongCover(undefined);
+      setIsPlaying(false);
     } else {
       setSongTitle(queue[0].title);
       setSongArtist(queue[0].artist);
@@ -114,73 +77,122 @@ function PlaylistSide(props) {
       setQueue(queue.slice(1));
       setSongLocked(false);
       setCurrentTime(0); // TODO see from where we get the info
+      setIsPlaying(true);
     }
-  };
+  }, [
+    queue,
+    setSongTitle,
+    setSongArtist,
+    setSongCover,
+    setSongDuration,
+    setQueue,
+    setSongLocked,
+    setCurrentTime,
+    setIsPlaying,
+  ]);
 
-  const handleLock = () => {
+  const handleLock = useCallback(() => {
     setSongLocked(!songLocked);
-  };
+  }, [songLocked, setSongLocked]);
 
   // ------- Effects --------
 
+  // manage loading
   React.useEffect(() => {
     if (
       isAdmin === undefined ||
       participants === undefined ||
       queue === undefined ||
       nbvotes === undefined ||
-      isPlaying === undefined ||
-      songTitle === undefined ||
-      songArtist === undefined ||
-      songCover === undefined
+      isPlaying === undefined
     ) {
       setLoading(true);
     } else {
       setLoading(false);
     }
-  }, [
-    isAdmin,
-    participants,
-    queue,
-    nbvotes,
-    isPlaying,
-    songTitle,
-    songArtist,
-    songCover,
-    setLoading,
-  ]);
+  }, [isAdmin, participants, queue, nbvotes, isPlaying, setLoading]);
 
+  // function to skip the current song
   React.useEffect(() => {
     if (nbvotes > participants * 0.7) {
       handleNext();
       setNbvotes(0);
       setAsVoted(false);
     }
-  }, [nbvotes, participants, setNbvotes, setAsVoted]);
+  }, [nbvotes, participants, setNbvotes, setAsVoted, handleNext]);
 
+  // function that handles the voting of the next song
   React.useEffect(() => {
     if (!songLocked && currentTime >= songDuration * 0.8) {
       handleLock();
     }
-  }, [currentTime, songDuration]);
+  }, [currentTime, songDuration, songLocked, handleLock]);
+
+  // handles the playing of the song
+  React.useEffect(() => {
+    const handleFirstPlay = () => {
+      if (queue.length > 0 && !songCover) {
+        setSongTitle(queue[0].title);
+        setSongArtist(queue[0].artist);
+        setSongCover(queue[0].cover);
+        setSongDuration(queue[0].duration);
+        setIsPlaying(true);
+        setQueue(queue.slice(1));
+      } else if (queue.length === 0 && !songCover) {
+        setSongTitle("It's calm here...");
+        setSongArtist("ADD SOME SONGS");
+        setSongCover(undefined);
+        setSongDuration(undefined);
+        setIsPlaying(false);
+      }
+    };
+    handleFirstPlay();
+  }, [
+    queue,
+    songCover,
+    setSongTitle,
+    setSongArtist,
+    setSongCover,
+    setSongDuration,
+    setIsPlaying,
+    setQueue,
+  ]);
+
+  // handles the currentTime increment
+  React.useEffect(() => {
+    let interval;
+    if (isPlaying) {
+      if (currentTime >= songDuration) {
+        handleNext();
+      } else {
+        interval = setInterval(() => {
+          setCurrentTime(currentTime + 1);
+        }, 1000);
+      }
+    }
+    return () => clearInterval(interval);
+  }, [isPlaying, currentTime, handleNext, setCurrentTime, songDuration]);
 
   // ------- Render ------
   return (
     <div className="playlist-container">
       <section className="player-container">
         <div className="current-song">
-          <div className="cover-song">
-            <img
-              src={songCover || ""}
-              alt="song cover"
-              style={{
-                animation: isPlaying ? "4s linear infinite rotate" : "none",
-                opacity: isPlaying ? "1" : "0.5",
-              }}
-            />
+          <div className="cover-container">
+            <div className="cover-song">
+              <img
+                src={songCover || ""}
+                alt="song cover"
+                style={{
+                  animation: isPlaying ? "4s linear infinite rotate" : "none",
+                  opacity: isPlaying ? "1" : "0.5",
+                }}
+              />
+            </div>
           </div>
+
           <div className="song-infos">
-            <h4>{songTitle}</h4>
+            <h4 title={songTitle}>{songTitle}</h4>
             <h5>{songArtist}</h5>
           </div>
         </div>

@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import "../css/HomeHeader.css";
 import { FiUsers, FiShare } from "react-icons/fi";
 
 function HomeHeader(props) {
   const { participants, SmsRequest, copyToClipboard, platform } = props;
-
-  // ------------------ States ------------------
-  // ------------------ Effects ------------------
 
   // ------------------ Render ------------------
 

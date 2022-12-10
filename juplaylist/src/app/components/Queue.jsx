@@ -5,18 +5,14 @@ import { FiArrowUpCircle, FiArrowDownCircle } from "react-icons/fi";
 
 function Queue(props) {
   const { queue, setQueue, songLocked } = props;
-
   // ------- State ------
-  const [userId] = React.useState("5f9f9f9f9f9f9f9f9f9f9f9f"); // TODO get from db
+  const [userId] = React.useState("1Dzfe8Ab"); // TODO get from db
 
   // ------- Functions ------
-  let firstVal;
-
-  // TODO BIG, handle the moment where the next song is locked and
-  //no votes will be taken into account
 
   const handleVote = (index, vote) => {
     const newQueue = [...queue];
+
     if (vote === "up") {
       if (newQueue[index].likes.includes(userId)) {
         newQueue[index].likes = newQueue[index].likes.filter(
@@ -40,6 +36,7 @@ function Queue(props) {
         );
       }
     }
+    let firstVal;
 
     if (songLocked) {
       firstVal = newQueue.shift();
@@ -51,7 +48,6 @@ function Queue(props) {
         (b.dislikes.length - a.dislikes.length)
       );
     });
-    // newQueue = firstVal + newQueue;
     if (firstVal) newQueue.unshift(firstVal);
     setQueue(newQueue);
   };
@@ -74,7 +70,9 @@ function Queue(props) {
       queueList.push(
         <div className="queue-item" key={i}>
           <div className="queue-item-infos">
-            <img src={queue[i].cover} alt="cover" />
+            <div className="queue-image-container">
+              <img src={queue[i].cover} alt="cover" />
+            </div>
             <div className="queue-item-infos-text">
               <h4 className="queue-item-title">{queue[i].title}</h4>
               <h5 className="queue-item-artist">{queue[i].artist}</h5>
@@ -113,10 +111,12 @@ function Queue(props) {
   return (
     <div className="queue">
       <section className="next-container">
-        {queue.length <= 0 && <p>No song to pe played</p>}
+        {queue.length <= 0 && <p>No song to be played</p>}
         {queue.length > 0 && (
           <>
-            <img src={queue[0].cover} alt="music cover" />
+            <div className="queue-image-container">
+              <img src={queue[0].cover} alt="music cover" />
+            </div>
             <div className="next-info">
               <p>{queue[0].title}</p>
               <h6>{queue[0].artist}</h6>
